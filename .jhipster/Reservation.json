@@ -1,0 +1,49 @@
+{
+    "name": "Reservation",
+    "fields": [
+        {
+            "fieldName": "dateReservation",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "nombreDePlace",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "StatusReservation",
+            "fieldValues": "ANVOYER,ACCEPTER,CONFIRMER,REFUSER"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "annonce",
+            "otherEntityRelationshipName": "reservation",
+            "relationshipName": "annonce",
+            "otherEntityField": "nom"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "passager",
+            "otherEntityRelationshipName": "reservation",
+            "relationshipName": "passager",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190913121217",
+    "entityTableName": "reservation",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

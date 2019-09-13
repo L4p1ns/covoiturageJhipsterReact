@@ -1,0 +1,49 @@
+{
+    "name": "Passager",
+    "fields": [
+        {
+            "fieldName": "fumeur",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "acceptMusic",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "acceptRadio",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "telephone",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "passager",
+            "relationshipName": "user",
+            "otherEntityField": "email",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "reservation",
+            "otherEntityRelationshipName": "passager",
+            "relationshipName": "reservation"
+        }
+    ],
+    "changelogDate": "20190913121216",
+    "entityTableName": "passager",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

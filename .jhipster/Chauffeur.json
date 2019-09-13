@@ -1,0 +1,44 @@
+{
+    "name": "Chauffeur",
+    "fields": [
+        {
+            "fieldName": "dateDelivranceLicence",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "telephone",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "user",
+            "otherEntityRelationshipName": "chauffeur",
+            "relationshipName": "user",
+            "otherEntityField": "email",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "annonce",
+            "otherEntityRelationshipName": "chauffeur",
+            "relationshipName": "annonce"
+        }
+    ],
+    "changelogDate": "20190913121215",
+    "entityTableName": "chauffeur",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

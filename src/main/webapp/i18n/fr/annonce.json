@@ -1,0 +1,34 @@
+{
+  "covoijhipsterApp": {
+    "annonce": {
+      "home": {
+        "title": "Annonces",
+        "createLabel": "Créer un nouveau Annonce",
+        "createOrEditLabel": "Créer ou éditer un Annonce",
+        "search": "Recherche pour Annonce",
+        "notFound": "Aucun Annonce trouvé"
+      },
+      "created": "Un nouveau Annonce a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Annonce avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Annonce avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Annonce {{ id }} ?"
+      },
+      "detail": {
+        "title": "Annonce"
+      },
+      "nom": "Nom",
+      "lieuDepart": "Lieu Depart",
+      "lieuArrivee": "Lieu Arrivee",
+      "dateVoyage": "Date Voyage",
+      "detail": "Detail",
+      "music": "Music",
+      "fumer": "Fumer",
+      "radio": "Radio",
+      "dateCreation": "Date Creation",
+      "etatAnnonce": "Etat Annonce",
+      "reservation": "Reservation",
+      "chauffeur": "Chauffeur"
+    }
+  }
+}

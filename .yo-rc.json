@@ -28,14 +28,23 @@
     "clientFramework": "react",
     "clientTheme": "cyborg",
     "clientThemeVariant": "primary",
-    "testFrameworks": ["cucumber"],
+    "testFrameworks": [
+      "cucumber"
+    ],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "fr",
-    "languages": ["fr"],
-    "blueprints": []
+    "languages": [
+      "fr"
+    ],
+    "blueprints": [],
+    "appsFolders": [
+      "covoijhipster"
+    ],
+    "directoryPath": "../",
+    "monitoring": "no"
   }
 }

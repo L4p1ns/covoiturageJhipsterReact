@@ -9,6 +9,18 @@ import { NavDropdown } from './menu-components';
 export const EntitiesMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown icon="th-list" name={translate('global.menu.entities.main')} id="entity-menu">
+    <MenuItem icon="asterisk" to="/entity/chauffeur">
+      <Translate contentKey="global.menu.entities.chauffeur" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/entity/passager">
+      <Translate contentKey="global.menu.entities.passager" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/entity/reservation">
+      <Translate contentKey="global.menu.entities.reservation" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/entity/annonce">
+      <Translate contentKey="global.menu.entities.annonce" />
+    </MenuItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>
 );

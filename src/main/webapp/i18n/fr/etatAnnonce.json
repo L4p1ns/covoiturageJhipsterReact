@@ -1,0 +1,9 @@
+{
+  "covoijhipsterApp": {
+    "EtatAnnonce": {
+      "null": "",
+      "ACTIVE": "ACTIVE",
+      "ANNULER": "ANNULER"
+    }
+  }
+}

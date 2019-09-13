@@ -1,0 +1,28 @@
+{
+  "covoijhipsterApp": {
+    "passager": {
+      "home": {
+        "title": "Passagers",
+        "createLabel": "Créer un nouveau Passager",
+        "createOrEditLabel": "Créer ou éditer un Passager",
+        "search": "Recherche pour Passager",
+        "notFound": "Aucun Passager trouvé"
+      },
+      "created": "Un nouveau Passager a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Passager avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Passager avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Passager {{ id }} ?"
+      },
+      "detail": {
+        "title": "Passager"
+      },
+      "fumeur": "Fumeur",
+      "acceptMusic": "Accept Music",
+      "acceptRadio": "Accept Radio",
+      "telephone": "Telephone",
+      "user": "User",
+      "reservation": "Reservation"
+    }
+  }
+}

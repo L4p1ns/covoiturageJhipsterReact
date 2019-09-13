@@ -43,6 +43,13 @@ public class CacheConfiguration {
             createCache(cm, com.covoiturage.sn.domain.User.class.getName());
             createCache(cm, com.covoiturage.sn.domain.Authority.class.getName());
             createCache(cm, com.covoiturage.sn.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.covoiturage.sn.domain.Chauffeur.class.getName());
+            createCache(cm, com.covoiturage.sn.domain.Chauffeur.class.getName() + ".annonces");
+            createCache(cm, com.covoiturage.sn.domain.Passager.class.getName());
+            createCache(cm, com.covoiturage.sn.domain.Passager.class.getName() + ".reservations");
+            createCache(cm, com.covoiturage.sn.domain.Reservation.class.getName());
+            createCache(cm, com.covoiturage.sn.domain.Annonce.class.getName());
+            createCache(cm, com.covoiturage.sn.domain.Annonce.class.getName() + ".reservations");
             // jhipster-needle-ehcache-add-entry
         };
     }

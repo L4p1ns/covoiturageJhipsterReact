@@ -1,0 +1,85 @@
+{
+    "name": "Annonce",
+    "fields": [
+        {
+            "fieldName": "nom",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": 5
+        },
+        {
+            "fieldName": "lieuDepart",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": 5
+        },
+        {
+            "fieldName": "lieuArrivee",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": 5
+        },
+        {
+            "fieldName": "dateVoyage",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "detail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "music",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "fumer",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "radio",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "dateCreation",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "etatAnnonce",
+            "fieldType": "EtatAnnonce",
+            "fieldValues": "ACTIVE,ANNULER"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "reservation",
+            "otherEntityRelationshipName": "annonce",
+            "relationshipName": "reservation"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "chauffeur",
+            "otherEntityRelationshipName": "annonce",
+            "relationshipName": "chauffeur",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190913121218",
+    "entityTableName": "annonce",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

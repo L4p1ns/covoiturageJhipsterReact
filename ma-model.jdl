@@ -1,0 +1,49 @@
+
+entity Chauffeur {
+    dateDelivranceLicence Instant required,
+    telephone String required
+}
+entity Passager {
+    fumeur Boolean,
+    acceptMusic Boolean,
+    acceptRadio Boolean,
+    telephone String required
+}
+entity Reservation {
+    dateReservation Instant required,
+    nombreDePlace Integer required
+	status StatusReservation
+}
+//entity Place {
+// name String,
+// location String
+//}
+entity Annonce {
+	nom String required minlength(5),
+    lieuDepart String required minlength(5),
+	lieuArrivee String required minlength(5),
+	dateVoyage Instant,
+    detail String,
+	music Boolean,
+    fumer Boolean,
+    radio Boolean,
+    dateCreation Instant,
+	etatAnnonce EtatAnnonce
+}
+enum EtatAnnonce {
+    ACTIVE, ANNULER
+}
+enum StatusReservation {
+    ANVOYER, ACCEPTER, CONFIRMER, REFUSER
+}
+relationship OneToOne {
+    Chauffeur{user(email)} to User{chauffeur},
+    Passager{user(email)}  to User{passager}
+}
+relationship OneToMany {
+    Chauffeur{annonce(nom)} to Annonce{chauffeur} ,
+    Annonce{reservation} to Reservation{annonce(nom)},
+    Passager{reservation} to Reservation{passager}
+}
+dto * with mapstruct
+service all with serviceImpl

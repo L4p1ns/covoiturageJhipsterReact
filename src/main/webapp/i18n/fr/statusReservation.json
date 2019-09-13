@@ -1,0 +1,11 @@
+{
+  "covoijhipsterApp": {
+    "StatusReservation": {
+      "null": "",
+      "ANVOYER": "ANVOYER",
+      "ACCEPTER": "ACCEPTER",
+      "CONFIRMER": "CONFIRMER",
+      "REFUSER": "REFUSER"
+    }
+  }
+}

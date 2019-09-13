@@ -1,0 +1,41 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.covoiturage.sn",
+      "nativeLanguage": "fr"
+    },
+    "jhipsterVersion": "6.2.0",
+    "applicationType": "monolith",
+    "baseName": "covoijhipster",
+    "packageName": "com.covoiturage.sn",
+    "packageFolder": "com/covoiturage/sn",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "Y2RhYzRlMjMwZThmNjFlNmY2NzMwZDNlM2E4ZTFiMzliZDE4ZmY2MTIzNDA0NGU3MDYwZmU3MTFjMjIyNGM0NDJjYmUxZmQ1YjA5NTE4NWZkMTU1NmY1ZWEyOWU4OWNmZDEzNDY2ZWI5Y2U2Nzk2NTJmMWM5NzMzNzdiMzg3NTE=",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "cyborg",
+    "clientThemeVariant": "primary",
+    "testFrameworks": ["cucumber"],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "fr",
+    "languages": ["fr"],
+    "blueprints": []
+  }
+}

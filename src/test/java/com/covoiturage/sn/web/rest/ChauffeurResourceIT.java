@@ -23,8 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,9 +40,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = CovoijhipsterApp.class)
 public class ChauffeurResourceIT {
 
-    private static final Instant DEFAULT_DATE_DELIVRANCE_LICENCE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_DATE_DELIVRANCE_LICENCE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-    private static final Instant SMALLER_DATE_DELIVRANCE_LICENCE = Instant.ofEpochMilli(-1L);
+    private static final String DEFAULT_DATE_DELIVRANCE_LICENCE = "AAAAAAAAAA";
+    private static final String UPDATED_DATE_DELIVRANCE_LICENCE = "BBBBBBBBBB";
 
     private static final String DEFAULT_TELEPHONE = "AAAAAAAAAA";
     private static final String UPDATED_TELEPHONE = "BBBBBBBBBB";
@@ -338,7 +335,7 @@ public class ChauffeurResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chauffeur.getId().intValue())))
-            .andExpect(jsonPath("$.[*].dateDelivranceLicence").value(hasItem(DEFAULT_DATE_DELIVRANCE_LICENCE.toString())))
+            .andExpect(jsonPath("$.[*].dateDelivranceLicence").value(hasItem(DEFAULT_DATE_DELIVRANCE_LICENCE)))
             .andExpect(jsonPath("$.[*].telephone").value(hasItem(DEFAULT_TELEPHONE)));
     }
 

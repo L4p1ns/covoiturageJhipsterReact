@@ -2,19 +2,28 @@ package com.covoiturage.sn.service;
 
 import com.covoiturage.sn.config.Constants;
 import com.covoiturage.sn.domain.Authority;
+import com.covoiturage.sn.domain.Chauffeur;
+import com.covoiturage.sn.domain.Passager;
 import com.covoiturage.sn.domain.User;
 import com.covoiturage.sn.repository.AuthorityRepository;
+import com.covoiturage.sn.repository.ChauffeurRepository;
+import com.covoiturage.sn.repository.PassagerRepository;
 import com.covoiturage.sn.repository.UserRepository;
+import com.covoiturage.sn.repository.search.ChauffeurSearchRepository;
+import com.covoiturage.sn.repository.search.PassagerSearchRepository;
 import com.covoiturage.sn.repository.search.UserSearchRepository;
 import com.covoiturage.sn.security.AuthoritiesConstants;
 import com.covoiturage.sn.security.SecurityUtils;
 import com.covoiturage.sn.service.dto.UserDTO;
 import com.covoiturage.sn.service.util.RandomUtil;
-import com.covoiturage.sn.web.rest.errors.*;
-
+import com.covoiturage.sn.web.rest.errors.EmailAlreadyUsedException;
+import com.covoiturage.sn.web.rest.errors.InvalidPasswordException;
+import com.covoiturage.sn.web.rest.errors.LoginAlreadyUsedException;
+import com.covoiturage.sn.web.rest.vm.ManagedUserVM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -38,6 +47,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final ChauffeurRepository chauffeurRepository;
+
+    private final PassagerRepository passagerRepository;
+
+    private final ChauffeurSearchRepository chauffeurSearchRepository;
+
+    private final PassagerSearchRepository passagerSearchRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final UserSearchRepository userSearchRepository;
@@ -46,8 +63,12 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, ChauffeurRepository chauffeurRepository, PassagerRepository passagerRepository, ChauffeurSearchRepository chauffeurSearchRepository, PassagerSearchRepository passagerSearchRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
+        this.chauffeurRepository = chauffeurRepository;
+        this.passagerRepository = passagerRepository;
+        this.chauffeurSearchRepository = chauffeurSearchRepository;
+        this.passagerSearchRepository = passagerSearchRepository;
         this.passwordEncoder = passwordEncoder;
         this.userSearchRepository = userSearchRepository;
         this.authorityRepository = authorityRepository;
@@ -92,7 +113,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(ManagedUserVM userDTO, String password) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -125,13 +146,47 @@ public class UserService {
         userRepository.save(newUser);
         userSearchRepository.save(newUser);
         this.clearUserCaches(newUser);
-        log.debug("Created Information for User: {}", newUser);
+        log.debug("Created Information for User: registerUser methode {}", newUser);
+
+        if (userDTO.getDateDelivranceLicence()!=null) {
+            log.debug("Creer compte en tant que chauffeur",userDTO.getChauffeur());
+            Chauffeur chauffeur = new Chauffeur();
+            chauffeur.setUser(newUser);
+            chauffeur.setTelephone(userDTO.getTelephone());
+            chauffeur.setDateDelivranceLicence(userDTO.getDateDelivranceLicence());
+
+            chauffeurRepository.save(chauffeur);
+            chauffeurSearchRepository.save(chauffeur);
+            // Add Role Chauffeur
+            Set<Authority> roleChauffeur = new HashSet<>();
+            authorityRepository.findById(AuthoritiesConstants.CHAUFFEUR).ifPresent(roleChauffeur::add);
+            User u = userRepository.getOne(chauffeur.getUser().getId());
+            u.setAuthorities(roleChauffeur);
+            log.debug("+++++++++++++++++++++++++++++++++++++++++++++++");
+            log.debug("Utilisateur:::::::::::::::: "+u);
+            log.debug("+++++++++++++++++++++++++++++++++++++++++++++++");
+            log.debug("Utilisateur:::::::::::::::: "+u.getAuthorities());
+            log.debug("+++++++++++++++++++++++++++++++++++++++++++++++");
+            userRepository.save(u);
+            log.debug("Created Information for Chauffeur: {}", chauffeur);
+        } else {
+            log.debug("Creer compte en tant que passager",userDTO.getChauffeur());
+            Passager passager = new Passager();
+
+            passager.setUser(newUser);
+            passager.setTelephone(userDTO.getTelephone());
+            // Save passager
+            passagerRepository.save(passager);
+            passagerSearchRepository.save(passager);
+            log.debug("Created Information for Passager: {}", passager);
+        }
+
         return newUser;
     }
 
-    private boolean removeNonActivatedUser(User existingUser){
+    private boolean removeNonActivatedUser(User existingUser) {
         if (existingUser.getActivated()) {
-             return false;
+            return false;
         }
         userRepository.delete(existingUser);
         userRepository.flush();
@@ -139,7 +194,7 @@ public class UserService {
         return true;
     }
 
-    public User createUser(UserDTO userDTO) {
+    public User createUser(ManagedUserVM userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
@@ -167,7 +222,7 @@ public class UserService {
         userRepository.save(user);
         userSearchRepository.save(user);
         this.clearUserCaches(user);
-        log.debug("Created Information for User: {}", user);
+        log.debug("Created Information for User: createUser methode {}", user);
         return user;
     }
 
@@ -293,6 +348,7 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
+     *
      * @return a list of all the authorities.
      */
     public List<String> getAuthorities() {

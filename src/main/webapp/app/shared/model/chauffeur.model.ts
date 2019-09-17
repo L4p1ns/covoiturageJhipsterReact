@@ -1,9 +1,8 @@
-import { Moment } from 'moment';
 import { IAnnonce } from 'app/shared/model/annonce.model';
 
 export interface IChauffeur {
   id?: number;
-  dateDelivranceLicence?: Moment;
+  dateDelivranceLicence?: string;
   telephone?: string;
   userEmail?: string;
   userId?: number;

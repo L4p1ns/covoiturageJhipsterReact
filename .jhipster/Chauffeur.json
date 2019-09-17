@@ -3,7 +3,7 @@
     "fields": [
         {
             "fieldName": "dateDelivranceLicence",
-            "fieldType": "Instant",
+            "fieldType": "String",
             "fieldValidateRules": [
                 "required"
             ]

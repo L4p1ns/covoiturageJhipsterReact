@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, ICrudGetAction, TextFormat } from 'react-jhipster';
+import { Translate, ICrudGetAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -33,9 +33,7 @@ export class ChauffeurDetail extends React.Component<IChauffeurDetailProps> {
                 <Translate contentKey="covoijhipsterApp.chauffeur.dateDelivranceLicence">Date Delivrance Licence</Translate>
               </span>
             </dt>
-            <dd>
-              <TextFormat value={chauffeurEntity.dateDelivranceLicence} type="date" format={APP_DATE_FORMAT} />
-            </dd>
+            <dd>{chauffeurEntity.dateDelivranceLicence}</dd>
             <dt>
               <span id="telephone">
                 <Translate contentKey="covoijhipsterApp.chauffeur.telephone">Telephone</Translate>

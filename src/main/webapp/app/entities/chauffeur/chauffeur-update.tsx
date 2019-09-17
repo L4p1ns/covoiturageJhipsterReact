@@ -49,8 +49,6 @@ export class ChauffeurUpdate extends React.Component<IChauffeurUpdateProps, ICha
   }
 
   saveEntity = (event, errors, values) => {
-    values.dateDelivranceLicence = convertDateTimeToServer(values.dateDelivranceLicence);
-
     if (errors.length === 0) {
       const { chauffeurEntity } = this.props;
       const entity = {
@@ -101,13 +99,10 @@ export class ChauffeurUpdate extends React.Component<IChauffeurUpdateProps, ICha
                   <Label id="dateDelivranceLicenceLabel" for="chauffeur-dateDelivranceLicence">
                     <Translate contentKey="covoijhipsterApp.chauffeur.dateDelivranceLicence">Date Delivrance Licence</Translate>
                   </Label>
-                  <AvInput
+                  <AvField
                     id="chauffeur-dateDelivranceLicence"
-                    type="datetime-local"
-                    className="form-control"
+                    type="text"
                     name="dateDelivranceLicence"
-                    placeholder={'YYYY-MM-DD HH:mm'}
-                    value={isNew ? null : convertDateTimeFromServer(this.props.chauffeurEntity.dateDelivranceLicence)}
                     validate={{
                       required: { value: true, errorMessage: translate('entity.validation.required') }
                     }}

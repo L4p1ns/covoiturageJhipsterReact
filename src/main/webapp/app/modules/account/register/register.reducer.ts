@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { translate } from 'react-jhipster';
+import {log, translate} from 'react-jhipster';
 
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
 
@@ -46,9 +46,9 @@ export default (state: RegisterState = initialState, action): RegisterState => {
 };
 
 // Actions
-export const handleRegister = (login, email, password, langKey = 'en') => ({
+export const handleRegister = (login, email, password, telephone, dateDelivranceLicence, chauffeur, langKey = 'en') => ({
   type: ACTION_TYPES.CREATE_ACCOUNT,
-  payload: axios.post('api/register', { login, email, password, langKey }),
+  payload: axios.post('api/register', { login, email, password, telephone, dateDelivranceLicence, chauffeur, langKey }),
   meta: {
     successMessage: translate('register.messages.success')
   }

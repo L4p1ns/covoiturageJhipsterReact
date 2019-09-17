@@ -12,6 +12,7 @@ import com.covoiturage.sn.web.rest.errors.BadRequestAlertException;
 import com.covoiturage.sn.web.rest.errors.EmailAlreadyUsedException;
 import com.covoiturage.sn.web.rest.errors.LoginAlreadyUsedException;
 
+import com.covoiturage.sn.web.rest.vm.ManagedUserVM;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -100,7 +101,7 @@ public class UserResource {
      */
     @PostMapping("/users")
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) throws URISyntaxException {
+    public ResponseEntity<User> createUser(@Valid @RequestBody ManagedUserVM userDTO) throws URISyntaxException {
         log.debug("REST request to save User : {}", userDTO);
 
         if (userDTO.getId() != null) {

@@ -1,5 +1,4 @@
 package com.covoiturage.sn.service.dto;
-import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,7 +11,7 @@ public class ChauffeurDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Instant dateDelivranceLicence;
+    private String dateDelivranceLicence;
 
     @NotNull
     private String telephone;
@@ -30,11 +29,11 @@ public class ChauffeurDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getDateDelivranceLicence() {
+    public String getDateDelivranceLicence() {
         return dateDelivranceLicence;
     }
 
-    public void setDateDelivranceLicence(Instant dateDelivranceLicence) {
+    public void setDateDelivranceLicence(String dateDelivranceLicence) {
         this.dateDelivranceLicence = dateDelivranceLicence;
     }
 

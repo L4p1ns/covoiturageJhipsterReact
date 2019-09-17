@@ -4,7 +4,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, InputGroup, Col, Row, Table } from 'reactstrap';
 import { AvForm, AvGroup, AvInput } from 'availity-reactstrap-validation';
 // tslint:disable-next-line:no-unused-variable
-import { Translate, translate, ICrudSearchAction, ICrudGetAllAction, TextFormat } from 'react-jhipster';
+import { Translate, translate, ICrudSearchAction, ICrudGetAllAction } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -105,9 +105,7 @@ export class Chauffeur extends React.Component<IChauffeurProps, IChauffeurState>
                         {chauffeur.id}
                       </Button>
                     </td>
-                    <td>
-                      <TextFormat type="date" value={chauffeur.dateDelivranceLicence} format={APP_DATE_FORMAT} />
-                    </td>
+                    <td>{chauffeur.dateDelivranceLicence}</td>
                     <td>{chauffeur.telephone}</td>
                     <td>{chauffeur.userEmail ? chauffeur.userEmail : ''}</td>
                     <td className="text-right">

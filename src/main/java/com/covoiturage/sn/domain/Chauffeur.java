@@ -7,7 +7,6 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +28,7 @@ public class Chauffeur implements Serializable {
 
     @NotNull
     @Column(name = "date_delivrance_licence", nullable = false)
-    private Instant dateDelivranceLicence;
+    private String dateDelivranceLicence;
 
     @NotNull
     @Column(name = "telephone", nullable = false)
@@ -38,6 +37,9 @@ public class Chauffeur implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private User user;
+
+    public Chauffeur() {
+    }
 
     @OneToMany(mappedBy = "chauffeur")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -52,16 +54,16 @@ public class Chauffeur implements Serializable {
         this.id = id;
     }
 
-    public Instant getDateDelivranceLicence() {
+    public String getDateDelivranceLicence() {
         return dateDelivranceLicence;
     }
 
-    public Chauffeur dateDelivranceLicence(Instant dateDelivranceLicence) {
+    public Chauffeur dateDelivranceLicence(String dateDelivranceLicence) {
         this.dateDelivranceLicence = dateDelivranceLicence;
         return this;
     }
 
-    public void setDateDelivranceLicence(Instant dateDelivranceLicence) {
+    public void setDateDelivranceLicence(String dateDelivranceLicence) {
         this.dateDelivranceLicence = dateDelivranceLicence;
     }
 

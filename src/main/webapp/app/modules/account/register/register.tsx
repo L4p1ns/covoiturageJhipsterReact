@@ -1,23 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Translate, translate } from 'react-jhipster';
-import { connect } from 'react-redux';
-import { AvForm, AvField } from 'availity-reactstrap-validation';
-import { Row, Col, Alert, Button } from 'reactstrap';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Translate, translate} from 'react-jhipster';
+import {connect} from 'react-redux';
+import {AvCheckbox, AvCheckboxGroup, AvField, AvForm} from 'availity-reactstrap-validation';
+import {Button, Col, Row} from 'reactstrap';
 
 import PasswordStrengthBar from 'app/shared/layout/password/password-strength-bar';
-import { IRootState } from 'app/shared/reducers';
-import { handleRegister, reset } from './register.reducer';
+import {IRootState} from 'app/shared/reducers';
+import {handleRegister, reset} from './register.reducer';
 
-export interface IRegisterProps extends StateProps, DispatchProps {}
+export interface IRegisterProps extends StateProps, DispatchProps {
+}
 
 export const RegisterPage = (props: IRegisterProps) => {
   const [password, setPassword] = useState('');
+  const [chauffeur, setChauffeur] = useState({value: false});
+  const setValue = useCallback((newValue) => {
+    setChauffeur((prev) => ({...prev, value:newValue}))
+  },[]);
 
   useEffect(() => () => props.reset(), []);
 
   const handleValidSubmit = (event, values) => {
-    props.handleRegister(values.username, values.email, values.firstPassword, props.currentLocale);
+    props.handleRegister(values.username, values.email, values.firstPassword, values.telephone, values.dateDelivranceLicence, values.chauffeur, props.currentLocale);
     event.preventDefault();
+    console.log("Handle register called: ", values);
   };
 
   const updatePassword = event => setPassword(event.target.value);
@@ -39,10 +45,13 @@ export const RegisterPage = (props: IRegisterProps) => {
               label={translate('global.form.username.label')}
               placeholder={translate('global.form.username.placeholder')}
               validate={{
-                required: { value: true, errorMessage: translate('register.messages.validate.login.required') },
-                pattern: { value: '^[_.@A-Za-z0-9-]*$', errorMessage: translate('register.messages.validate.login.pattern') },
-                minLength: { value: 1, errorMessage: translate('register.messages.validate.login.minlength') },
-                maxLength: { value: 50, errorMessage: translate('register.messages.validate.login.maxlength') }
+                required: {value: true, errorMessage: translate('register.messages.validate.login.required')},
+                pattern: {
+                  value: '^[_.@A-Za-z0-9-]*$',
+                  errorMessage: translate('register.messages.validate.login.pattern')
+                },
+                minLength: {value: 1, errorMessage: translate('register.messages.validate.login.minlength')},
+                maxLength: {value: 50, errorMessage: translate('register.messages.validate.login.maxlength')}
               }}
             />
             <AvField
@@ -51,9 +60,9 @@ export const RegisterPage = (props: IRegisterProps) => {
               placeholder={translate('global.form.email.placeholder')}
               type="email"
               validate={{
-                required: { value: true, errorMessage: translate('global.messages.validate.email.required') },
-                minLength: { value: 5, errorMessage: translate('global.messages.validate.email.minlength') },
-                maxLength: { value: 254, errorMessage: translate('global.messages.validate.email.maxlength') }
+                required: {value: true, errorMessage: translate('global.messages.validate.email.required')},
+                minLength: {value: 5, errorMessage: translate('global.messages.validate.email.minlength')},
+                maxLength: {value: 254, errorMessage: translate('global.messages.validate.email.maxlength')}
               }}
             />
             <AvField
@@ -63,55 +72,96 @@ export const RegisterPage = (props: IRegisterProps) => {
               type="password"
               onChange={updatePassword}
               validate={{
-                required: { value: true, errorMessage: translate('global.messages.validate.newpassword.required') },
-                minLength: { value: 4, errorMessage: translate('global.messages.validate.newpassword.minlength') },
-                maxLength: { value: 50, errorMessage: translate('global.messages.validate.newpassword.maxlength') }
+                required: {value: true, errorMessage: translate('global.messages.validate.newpassword.required')},
+                minLength: {value: 4, errorMessage: translate('global.messages.validate.newpassword.minlength')},
+                maxLength: {value: 50, errorMessage: translate('global.messages.validate.newpassword.maxlength')}
               }}
             />
-            <PasswordStrengthBar password={password} />
+            <PasswordStrengthBar password={password}/>
             <AvField
               name="secondPassword"
               label={translate('global.form.confirmpassword.label')}
               placeholder={translate('global.form.confirmpassword.placeholder')}
               type="password"
               validate={{
-                required: { value: true, errorMessage: translate('global.messages.validate.confirmpassword.required') },
-                minLength: { value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength') },
-                maxLength: { value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength') },
-                match: { value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch') }
+                required: {value: true, errorMessage: translate('global.messages.validate.confirmpassword.required')},
+                minLength: {value: 4, errorMessage: translate('global.messages.validate.confirmpassword.minlength')},
+                maxLength: {value: 50, errorMessage: translate('global.messages.validate.confirmpassword.maxlength')},
+                match: {value: 'firstPassword', errorMessage: translate('global.messages.error.dontmatch')}
               }}
             />
+            <AvField
+              name="telephone"
+              placeholder="Telephone"
+              type="text"
+              label="Telephone"
+              validate={{
+                required: {value: true, errorMessage: translate('global.messages.validate.telephone.required')},
+                minLength: {value: 9, errorMessage: translate('global.messages.validate.telephone.minlength')}
+              }}
+            />
+
+            <AvCheckboxGroup name="chauffeur" label="Type de compte" required errorMessage="Choisi le type de compte!">
+              {/*onChange  checked*/}
+              {!chauffeur.value &&
+              //trueValue="true" falseValue="false"
+              <AvCheckbox onClick={(e) => {
+                setValue(e.target.checked);
+                console.log("setChauffeur", chauffeur)
+              }} name={chauffeur} customInput label="Chauffeur" value={chauffeur.value}/>
+              }
+              {chauffeur.value &&
+              <AvCheckbox onClick={(e) => {
+                // setChauffeur(!chauffeur);
+                // setValue(!chauffeur);
+                setValue(e.target.checked);
+                console.log("set Passager", chauffeur)
+              }} name={chauffeur} customInput label="Passager" value={chauffeur.value}/>
+              }
+
+            </AvCheckboxGroup>
+            {!chauffeur.value &&
+            <AvField
+              name="dateDelivranceLicence"
+              placeholder="date Delivrance Licence"
+              type="date"
+              label="date Delivrance Licence"
+              validate={{
+                required: {value: true, errorMessage: translate('Ce champs est obligatoire')}
+              }}
+            />
+            }
             <Button id="register-submit" color="primary" type="submit">
               <Translate contentKey="register.form.button">Register</Translate>
             </Button>
           </AvForm>
           <p>&nbsp;</p>
-          <Alert color="warning">
-            <span>
-              <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>
-            </span>
-            <a className="alert-link">
-              <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>
-            </a>
-            <span>
-              <Translate contentKey="global.messages.info.authenticated.suffix">
-                , you can try the default accounts:
-                <br />- Administrator (login="admin" and password="admin")
-                <br />- User (login="user" and password="user").
-              </Translate>
-            </span>
-          </Alert>
+          {/*<Alert color="warning">*/}
+          {/*  /!*<span>*!/*/}
+          {/*  /!*  <Translate contentKey="global.messages.info.authenticated.prefix">If you want to </Translate>*!/*/}
+          {/*  /!*</span>*!/*/}
+          {/*  /!*<a className="alert-link">*!/*/}
+          {/*  /!*  <Translate contentKey="global.messages.info.authenticated.link"> sign in</Translate>*!/*/}
+          {/*  /!*</a>*!/*/}
+          {/*  /!*<span>*!/*/}
+          {/*  /!*  <Translate contentKey="global.messages.info.authenticated.suffix">*!/*/}
+          {/*  /!*    , you can try the default accounts:*!/*/}
+          {/*  /!*    <br />- Administrator (login="admin" and password="admin")*!/*/}
+          {/*  /!*    <br />- User (login="user" and password="user").*!/*/}
+          {/*  /!*  </Translate>*!/*/}
+          {/*  /!*</span>*!/*/}
+          {/*</Alert>*/}
         </Col>
       </Row>
     </div>
   );
 };
 
-const mapStateToProps = ({ locale }: IRootState) => ({
+const mapStateToProps = ({locale}: IRootState) => ({
   currentLocale: locale.currentLocale
 });
 
-const mapDispatchToProps = { handleRegister, reset };
+const mapDispatchToProps = {handleRegister, reset};
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 

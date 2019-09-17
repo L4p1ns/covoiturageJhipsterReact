@@ -22,8 +22,8 @@ public class Passager implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
     private Long id;
 
     @Column(name = "fumeur")
@@ -41,6 +41,7 @@ public class Passager implements Serializable {
 
     @OneToOne
     @JoinColumn(unique = true)
+    @MapsId
     private User user;
 
     @OneToMany(mappedBy = "passager")
@@ -48,6 +49,10 @@ public class Passager implements Serializable {
     private Set<Reservation> reservations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    public Passager() {
+    }
+
     public Long getId() {
         return id;
     }

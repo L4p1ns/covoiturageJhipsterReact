@@ -1,6 +1,6 @@
 
 entity Chauffeur {
-    dateDelivranceLicence Instant required,
+    dateDelivranceLicence String required,
     telephone String required
 }
 entity Passager {
